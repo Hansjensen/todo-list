@@ -1,7 +1,6 @@
-
 let idNum = 0
 
-export function todoItem(title, description, dueDate, priority) {
+export function todoItem(title, description, dueDate, priority, project) {
     
     
     const todo = {
@@ -10,6 +9,12 @@ export function todoItem(title, description, dueDate, priority) {
         description: description,
         dueDate: dueDate,
         priority: priority,
+        checked: false,
+    }
+    if (project) {
+        
+        todo.projectId = project
+
     }
     idNum++
     return todo
@@ -17,11 +22,13 @@ export function todoItem(title, description, dueDate, priority) {
 }
 
 export function project(title, description, dueDate, priority) {
-    return {
+    const project = {
+        id: idNum,
         title: title,
         description: description,
         dueDate: dueDate,
         priority: priority,
-        todoList: []
     }
+    idNum++;
+    return project
 }
