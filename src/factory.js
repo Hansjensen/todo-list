@@ -20,15 +20,15 @@ export function todoItem(title, description, dueDate, priority, project) {
     return todo
 
 }
-
+let projId = 1
 export function project(title, description, dueDate, priority) {
     const project = {
-        id: idNum,
+        id: projId,
         title: title,
         description: description,
         dueDate: dueDate,
         priority: priority,
     }
-    idNum++;
+    projId++;
     return project
 }

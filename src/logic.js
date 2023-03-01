@@ -91,4 +91,10 @@ export function listByDate(x) {
 
 }
 
+export function listByProject(x) {
+
+    let list = todoList.filter(y => y.projectId == x)
+    return list
+    
+}
 export {todoList, projectList}

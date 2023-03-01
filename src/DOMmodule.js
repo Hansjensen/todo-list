@@ -66,6 +66,7 @@ export function pageTemplate() {
 
 export function todoItemRender(list) {
     let container = document.getElementById('contentContainer')
+    container.textContent = ''
   
     for (let i = 0 ; i < list.length; i++) {
         
@@ -119,7 +120,7 @@ export function projectListRender() {
     for (let i = 0; i < projectList.length; i++) {
         let build =
         elementBuild('li', {'class' : 'projectListItem'}, 
-                        elementBuild('a', {'class' : 'linkProject'}, projectList[i].title)
+                        elementBuild('a', {'class' : 'linkProject', 'id' : 'p' + projectList[i].id}, projectList[i].title)
                     )
         list.appendChild(build)
     }
