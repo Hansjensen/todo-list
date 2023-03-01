@@ -2,14 +2,16 @@ import * as factory from "./factory";
 import * as logic from "./logic";
 import 'typeface-roboto';
 import css from "./style.css";
-import { pageTemplate } from "./DOMmodule";
+import { pageTemplate, projectListRender, todoItemRender  } from "./DOMmodule";
 
-const running = new logic.addTodo('Running', 'Run 45 minutes', 'today', 'high');
-const swimming = new logic.addTodo('swimming', 'swim swim swim', 'tomorrow', 'medium', 4)
-const workout = new factory.project('Workouts', 'my daily workouts', 'this week', 'medium');
-const run = logic.todoList[0]
+const running = new logic.addTodo('Running', 'Run 45 minutes', 'today', 'High');
+const swimming = new logic.addTodo('swimming', 'swim swim swim', 'tomorrow', 'Medium', 4)
+const workout = new logic.addProject('Workouts', 'my daily workouts', 'this week', 'Medium');
+const worke = new logic.addProject('neato', 'my daily workouts', 'this week', 'Medium');
+const workdut = new logic.addProject('Longer Title', 'my daily workouts', 'this week', 'Medium');
+const wor33out = new logic.addProject('shitts', 'my daily workouts', 'this week', 'Medium');
+
+console.log (logic.projectList)
 pageTemplate();
-
-logic.changePriority(run, 'low')
-logic.changeProjectId(run, 4)
-console.log(logic.todoList)
+todoItemRender(logic.todoList)
+projectListRender()

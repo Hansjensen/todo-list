@@ -1,9 +1,12 @@
+import { projectList } from "./logic"
+
 
 function elementBuild (type, attributes, ...children) {
 
     const element = document.createElement(type)
     
     for (let key in attributes) {
+
         element.setAttribute(key, attributes[key])
     }
 
@@ -53,23 +56,76 @@ export function pageTemplate() {
         ),
         elementBuild('div', {'id' : 'content'},
             elementBuild('div', {'id' : 'contentContainer'},
-                elementBuild('div', {'class':'todoItem'}, 
-                    elementBuild('input', {'type' : 'checkbox'}),
-                    elementBuild('h3', {'class' : 'title'}, 'Prototype'),
-                    elementBuild('select', {'name' : 'priority'},
-                        elementBuild('option', {'value' : 'Low'}, 'Low'),
-                        elementBuild('option', {'value' : 'Medium'}, 'Medium'),
-                        elementBuild('option', {'value' : 'High'}, 'High')
-                    ),
-                    elementBuild('button', {'class' : 'todoEdit'}, 'Edit'),
-                    elementBuild('button', {'class' : 'todoDelete'}, 'Delete')
-
-
-                )
             )
         ),
     );
     body.appendChild(template)
 
 }
+
+
+export function todoItemRender(list) {
+    let container = document.getElementById('contentContainer')
+  
+    for (let i = 0 ; i < list.length; i++) {
+        
+        let build =
+        elementBuild('div', {'class':'todoItem'}, 
+                    checkboxBuilder(list[i]),
+                    elementBuild('h3', {'class' : 'title', 'id' : 'title_' + list[i].id}, list[i].title),
+                    selectPriorityBuilder(list[i]),
+                    elementBuild('button', {'class' : 'todoEdit', 'id' : 'edit_' + list[i].id}, 'Edit'),
+                    elementBuild('button', {'class' : 'todoDelete', 'id' : 'delete_' + list[i].id}, 'Delete')
+
+
+        )
+
+        container.appendChild(build)
+        
+        
+    }
+
+
+}
+
+function checkboxBuilder(todo) {
+    let checkbox = elementBuild('input', {'type' : 'checkbox'})
+    if (todo.checked) {
+        checkbox.checked = true;
+        return checkbox;
+    } else {
+        checkbox.checked = false;
+        return checkbox;
+    }
+}
+
+function selectPriorityBuilder(todo) {
+
+    let build = elementBuild('select', {'name' : 'priority'},
+                        elementBuild('option', {'value' : 'Low', 'id': 'Low'}, 'Low'),
+                        elementBuild('option', {'value' : 'Medium', 'id' : 'Medium'}, 'Medium'),
+                        elementBuild('option', {'value' : 'High', 'id' : 'High'}, 'High')
+                    )
+    build.value = todo.priority
+    return build
+
+}
+
+export function projectListRender() {
+
+    let container = document.getElementById('projectLinks')
+    let list = elementBuild('ul', {'id': 'projectList'},)
+
+    for (let i = 0; i < projectList.length; i++) {
+        let build =
+        elementBuild('li', {'class' : 'projectListItem'}, 
+                        elementBuild('a', {'class' : 'linkProject'}, projectList[i].title)
+                    )
+        list.appendChild(build)
+    }
+    container.appendChild(list)
+
+}
+
+
 

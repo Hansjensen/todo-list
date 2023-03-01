@@ -1,5 +1,5 @@
 import * as factory from './factory';
-const todoList = []
+const todoList = [{id: 1, title: 'Hello World', description: 'coolshit', dueDate: '03/29/23', priority: 'High', checked: true, projectId: 1}]
 
 export function addTodo(title, description, dueDate, priority, project) {
 
@@ -85,5 +85,10 @@ export function changeTitleProject(project, title) {
 
 }
 
+export function listByDate(x) {
+
+    let today = new Date 
+
+}
 
 export {todoList, projectList}
