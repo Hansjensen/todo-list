@@ -20,4 +20,5 @@ console.log(logic.listByProject(1))
 todoItemRender(logic.listByProject(1))
 projectListRender()
 projectListener()
+
 console.log(logic.listByProject(4))
