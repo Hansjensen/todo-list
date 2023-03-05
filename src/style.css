@@ -54,6 +54,7 @@ button {
     justify-content: space-between;
     box-shadow: 2px 5px 2px rgba(0, 0, 0, 0.097);
     position: relative;
+    padding-right: 3vw;
 }
 
 #logoDiv, #headerAddDiv {
@@ -71,8 +72,10 @@ button {
 }
 
 #headerAddDiv {
-    margin-right: 3vw;
+    
     height: 100%;
+    position: relative;
+   display: inline-block;
 }
 
 #headerAdd {
@@ -80,6 +83,40 @@ button {
     height: 100%;
     line-height: 3rem;
     color: var(--medium-color);
+   
+}
+
+#dropdown {
+    display: none;
+    
+  position: absolute;
+  background-color: var(--light-color);
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+  
+  bottom: -75%;
+  color: rgb(44, 31, 3)
+}
+
+#dropdown a {
+    display: block;
+    height: 30px;
+    margin: auto;
+   padding: 5px;
+   font-size: .8em;
+   font-weight: bold;
+   
+
+}
+
+#dropdown a:hover {
+    background-color: var(--medium-color);
+}
+
+#dropdown.show {
+    display: inline-block;
 }
 
 #headerAdd:hover, a:hover {
@@ -171,5 +208,69 @@ button {
 
 .title {
     width: 50%;
+}
+
+#popUpTodo, #popUpProject {
+    position: fixed;
+    width: 600px;
+    max-width: 80%;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 10;
+    background-color: var(--light-color);
+    border: 1px black solid;
+    border-radius: 4px;
+    transition: 200ms ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+#popUpTodo.active, #popUpProject.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#popUpHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2%;
+}
+
+.popUpClose {
+    font-size: large;
+    font-weight: bolder;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+    background-color: rgba(0, 0, 0, 0.582);
+    opacity: 0;
+    pointer-events: none ;
+    transition: 200ms ease-in-out;  
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#popUpFormT, #popUpFormP {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 25px 0;
+    
+}
+
+#popUpFormT > label, #popUpFormP > label , #submitTodoAdd, #submitProjectAdd{
+    margin-top: 20px 
 }
 

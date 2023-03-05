@@ -1,5 +1,6 @@
 import * as factory from './factory';
-const todoList = [{id: 1, title: 'Hello World', description: 'coolshit', dueDate: '03/29/23', priority: 'High', checked: true, projectId: 1}]
+const todoList = [{id: 1, title: 'Hello World', description: 'coolshit', dueDate: '2023-03-01', priority: 'High', checked: true, projectId: 1}]
+import { isToday, isTomorrow, parseISO, isThisWeek } from 'date-fns';
 
 export function addTodo(title, description, dueDate, priority, project) {
 
@@ -85,10 +86,21 @@ export function changeTitleProject(project, title) {
 
 }
 
-export function listByDate(x) {
+export function listByToday() {
 
-    let today = new Date 
+    let today = todoList.filter(y => isToday(parseISO(y.dueDate))) 
+    return today
 
+}
+
+export function listByTomorrow() {
+    let tomorrow = todoList.filter(y => isTomorrow(parseISO(y.dueDate))) 
+    return tomorrow
+}
+
+export function listByThisWeek() {
+    let tomorrow = todoList.filter(y => isThisWeek(parseISO(y.dueDate))) 
+    return tomorrow
 }
 
 export function listByProject(x) {
@@ -97,4 +109,27 @@ export function listByProject(x) {
     return list
     
 }
+
+export function popUpClass(x) {
+    let popUp;
+    let overlay = document.getElementById('overlay')
+    if (x === 'project'){
+        popUp = document.getElementById('popUpProject')
+    } else if (x === 'todo'){
+        popUp = document.getElementById('popUpTodo')
+    } 
+    
+
+    overlay.classList.toggle('active')
+    popUp.classList.toggle('active')
+
+}
+
+export function dropdownClass() {
+    let dropdown = document.getElementById('dropdown')
+
+    dropdown.classList.toggle('show');
+
+}
+
 export {todoList, projectList}

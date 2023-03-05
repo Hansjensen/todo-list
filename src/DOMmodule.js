@@ -1,3 +1,4 @@
+import { projectListener } from "./listeners"
 import { projectList } from "./logic"
 
 
@@ -23,7 +24,11 @@ function elementBuild (type, attributes, ...children) {
 
 export function pageTemplate() {
     const body = document.querySelector('body')
+    const popProject =  popUpBuilder('project');
+    const popTodo = popUpBuilder('todo')
+    const overlay = elementBuild('div', {'id' : 'overlay'})
     const template =
+    
     elementBuild('div', {'id' : 'wrapper'},
         elementBuild('header', {'id': 'header'}, 
             elementBuild('div', {'id': 'logoDiv'},
@@ -31,6 +36,10 @@ export function pageTemplate() {
             ),
             elementBuild('div', {'id': 'headerAddDiv'},
                 elementBuild('button', {'id': 'headerAdd'}, '+'
+                ),
+                elementBuild('div', {'id': 'dropdown'},
+                    elementBuild('a', {'class': 'dropdownLink', 'id' : 'todoAdd'}, 'ADD TODO'),
+                    elementBuild('a', {'class': 'dropdownLink', 'id' : 'projectAdd'}, 'ADD PROJECT')
                 )
             )
         ),
@@ -59,7 +68,10 @@ export function pageTemplate() {
             )
         ),
     );
+    body.appendChild(popProject)
+    body.appendChild(popTodo)
     body.appendChild(template)
+    body.appendChild(overlay)
 
 }
 
@@ -73,14 +85,15 @@ export function todoItemRender(list) {
         let build =
         elementBuild('div', {'class':'todoItem'}, 
                     checkboxBuilder(list[i]),
-                    elementBuild('h3', {'class' : 'title', 'id' : 'title_' + list[i].id}, list[i].title),
+                    elementBuild('h2', {'class' : 'title', 'id' : 'title_' + list[i].id}, list[i].title),
+                    elementBuild('h3', {'class' : 'todoDate'}, list[i].dueDate),
                     selectPriorityBuilder(list[i]),
                     elementBuild('button', {'class' : 'todoEdit', 'id' : 'edit_' + list[i].id}, 'Edit'),
                     elementBuild('button', {'class' : 'todoDelete', 'id' : 'delete_' + list[i].id}, 'Delete')
 
 
         )
-
+        
         container.appendChild(build)
         
         
@@ -112,10 +125,11 @@ function selectPriorityBuilder(todo) {
 
 }
 
-export function projectListRender() {
+export function projectListRender(x) {
 
     let container = document.getElementById('projectLinks')
     let list = elementBuild('ul', {'id': 'projectList'},)
+    container.textContent = ""
 
     for (let i = 0; i < projectList.length; i++) {
         let build =
@@ -125,8 +139,86 @@ export function projectListRender() {
         list.appendChild(build)
     }
     container.appendChild(list)
+    projectListener()
 
 }
 
+
+
+
+function popUpBuilder(x) {
+
+    if (x === 'project') {
+        let popUpForm = elementBuild('div', {'id' : 'popUpProject'},
+        elementBuild('div', {'id' : 'popUpHeader'}, 
+            elementBuild('h1', {'id' : 'popUpTitle'}, 'Add Project'),
+            elementBuild('button', {'id' : 'popUpProjectClose'}, 'X' )),
+        elementBuild('form', {'id' : 'popUpFormP', }, 
+        elementBuild('label', {'for' : 'titlePop',"class" : 'popLabel' }, 'TITLE'),
+        elementBuild('input', {'type' : 'text', 'id' : 'titlePopP', 'name' : 'titlePop'}),
+        elementBuild('label', {'for' : 'descriptionPop', "class" : 'popLabel'}, 'DESCRIPTION'),
+        elementBuild('textarea', {'type' : 'text', 'id' : 'descriptionPopP', 'name' : 'descriptionPop'}),
+        elementBuild('label', {'for' : 'datePop',"class" : 'popLabel' }, 'DATE'),
+        elementBuild('input', {'type' : 'date', 'id' : 'datePopP', 'name' : 'datePop'}),
+        elementBuild('label', {'for' : 'priorityPop',"class" : 'popLabel' }, 'PRIORITY'),
+        elementBuild('select', {'name' : 'priorityPop', 'id' : 'priorityPopP'},
+                        elementBuild('option', {'value' : 'Low', }, 'Low'),
+                        elementBuild('option', {'value' : 'Medium', }, 'Medium'),
+                        elementBuild('option', {'value' : 'High', }, 'High')
+                    ),
+        elementBuild('input', {'type' : 'submit' , 'value': 'ADD', 'rows' : '10', 'id' : 'submitProjectAdd'}, 'ADD'))
+
+        
+
+
+    )
+    return popUpForm;
+
+    } else if (x === 'todo') {
+        let popUpForm = elementBuild('div', {'id' : 'popUpTodo'},
+        elementBuild('div', {'id' : 'popUpHeader'}, 
+            elementBuild('h1', {'id' : 'popUpTitle'}, 'Add Todo'),
+            elementBuild('button', {'id' : 'popUpTodoClose'}, 'X' )),
+        elementBuild('form', {'id' : 'popUpFormT', }, 
+        elementBuild('label', {'for' : 'titlePop',"class" : 'popLabel' }, 'TITLE'),
+        elementBuild('input', {'type' : 'text', 'id' : 'titlePopT', 'name' : 'titlePop'}),
+        elementBuild('label', {'for' : 'descriptionPop', "class" : 'popLabel'}, 'DESCRIPTION'),
+        elementBuild('textarea', {'type' : 'text', 'id' : 'descriptionPopT', 'name' : 'descriptionPop'}),
+        elementBuild('label', {'for' : 'datePop',"class" : 'popLabel' }, 'DATE'),
+        elementBuild('input', {'type' : 'date', 'id' : 'datePopT', 'name' : 'datePop'}),
+        elementBuild('label', {'for' : 'priorityPop',"class" : 'popLabel' }, 'PRIORITY'),
+        elementBuild('select', {'name' : 'priorityPop', 'id' : 'priorityPopT'},
+                        elementBuild('option', {'value' : 'Low', }, 'Low'),
+                        elementBuild('option', {'value' : 'Medium', }, 'Medium'),
+                        elementBuild('option', {'value' : 'High', }, 'High')
+                    ),
+                    elementBuild('label', {'for' : 'priorityPop',"class" : 'popLabel' }, 'PROJECT'),
+        projectListPopUp(),
+        elementBuild('input', {'type' : 'submit' , 'value': 'ADD', 'rows' : '10', 'id' : 'submitTodoAdd'}, 'ADD'))
+
+        
+
+
+    )
+    return popUpForm;
+    }
+
+    
+
+}
+
+function projectListPopUp() {
+
+    let element = elementBuild('select', {'name' : 'projectPop', 'id' : 'projectPopT'})
+    element.appendChild(elementBuild('option', {'value' : 0}, 'None'))
+    for (let i = 0; i < projectList.length; i++) {
+        let title = projectList[i].title
+        let id = projectList[i].id
+        let option = elementBuild('option', {'value' : id}, title)
+        element.appendChild(option)
+    }
+    
+    return element
+}
 
 
