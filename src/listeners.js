@@ -1,5 +1,5 @@
 import * as logic from './logic'
-import { projectListRender, todoItemRender } from './DOMmodule'
+import { projectListRender, todoItemRender, currentList} from './DOMmodule'
 
 export function projectListener() {
 
@@ -159,4 +159,19 @@ export function popUpCloseTodoListener() {
     close.addEventListener('click', e => {
         logic.popUpClass('todo');
     })
+}
+
+export function todoDeleteButtonListener() {
+    
+    let deleteButt = document.querySelectorAll('.todoDelete')
+    deleteButt.forEach(item => {
+        item.addEventListener('click', e => {
+            let todo = e.target.id
+            todo = todo.slice(7)
+            logic.removeTodo(todo);
+            todoItemRender(currentList);
+            console.log(currentList)
+        })
+    })
+
 }

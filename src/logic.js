@@ -1,6 +1,9 @@
 import * as factory from './factory';
-const todoList = [{id: 1, title: 'Hello World', description: 'coolshit', dueDate: '2023-03-01', priority: 'High', checked: true, projectId: 1}]
+const todoList = [{id: 20, title: 'Hello World', description: 'coolshit', dueDate: '2023-03-01', priority: 'High', checked: true, projectId: 1}]
 import { isToday, isTomorrow, parseISO, isThisWeek } from 'date-fns';
+import { currentList } from './DOMmodule';
+
+
 
 export function addTodo(title, description, dueDate, priority, project) {
 
@@ -11,11 +14,18 @@ export function addTodo(title, description, dueDate, priority, project) {
 export function removeTodo(todo) {
     
     for (let i = 0; i < todoList.length; i++) {
-        if (todoList[i].id === todo.id) {
+        if (todoList[i].id == todo) {
             todoList.splice(i, 1);
-            return
+            
         }
     }    
+    
+    for (let i = 0; i < currentList.length; i++) {
+        if (currentList[i].id == todo) {
+            currentList.splice(i, 1);
+            return;
+        }
+    }
 }
 
 export function changePriority(todo, priority) {
@@ -131,5 +141,7 @@ export function dropdownClass() {
     dropdown.classList.toggle('show');
 
 }
+
+
 
 export {todoList, projectList}

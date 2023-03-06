@@ -1,5 +1,7 @@
-import { projectListener } from "./listeners"
+import { projectListener, todoDeleteButtonListener } from "./listeners"
 import { projectList } from "./logic"
+
+let currentList = []
 
 
 function elementBuild (type, attributes, ...children) {
@@ -79,9 +81,11 @@ export function pageTemplate() {
 export function todoItemRender(list) {
     let container = document.getElementById('contentContainer')
     container.textContent = ''
+    currentList = list
   
     for (let i = 0 ; i < list.length; i++) {
         
+
         let build =
         elementBuild('div', {'class':'todoItem'}, 
                     checkboxBuilder(list[i]),
@@ -97,9 +101,10 @@ export function todoItemRender(list) {
         container.appendChild(build)
         
         
+        
     }
 
-
+    todoDeleteButtonListener()
 }
 
 function checkboxBuilder(todo) {
@@ -221,4 +226,4 @@ function projectListPopUp() {
     return element
 }
 
-
+export {currentList}
