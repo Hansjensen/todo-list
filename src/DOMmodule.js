@@ -1,4 +1,4 @@
-import { projectListener, todoDeleteButtonListener } from "./listeners"
+import { projectListener, todoDeleteButtonListener, expandTodoItemListener } from "./listeners"
 import { projectList } from "./logic"
 
 let currentList = []
@@ -94,17 +94,27 @@ export function todoItemRender(list) {
                     selectPriorityBuilder(list[i]),
                     elementBuild('button', {'class' : 'todoEdit', 'id' : 'edit_' + list[i].id}, 'Edit'),
                     elementBuild('button', {'class' : 'todoDelete', 'id' : 'delete_' + list[i].id}, 'Delete')
+                )
+         let build2 = elementBuild('div', {'class' : 'todoItemLower'},
+                    elementBuild('h2', {'class' : 'todoDescription'}, list[i].description),
+                    elementBuild('div', {'class':'proListTodoItem'},
+                        elementBuild('label', {'for': 'projectPop'}, 'PROJECT'),
+                        projectListPopUp()
+                    )
+                )
 
 
-        )
+        
         
         container.appendChild(build)
+        container.appendChild(build2)
         
         
         
     }
 
     todoDeleteButtonListener()
+    expandTodoItemListener()
 }
 
 function checkboxBuilder(todo) {
@@ -129,6 +139,8 @@ function selectPriorityBuilder(todo) {
     return build
 
 }
+
+
 
 export function projectListRender(x) {
 
@@ -214,7 +226,7 @@ function popUpBuilder(x) {
 
 function projectListPopUp() {
 
-    let element = elementBuild('select', {'name' : 'projectPop', 'id' : 'projectPopT'})
+    let element = elementBuild('select', {'name' : 'projectPop', 'class' : 'projectPopT'})
     element.appendChild(elementBuild('option', {'value' : 0}, 'None'))
     for (let i = 0; i < projectList.length; i++) {
         let title = projectList[i].title

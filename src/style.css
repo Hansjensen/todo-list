@@ -198,16 +198,49 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    height: 8%;
+    padding: 15px 0;
     width: 95%;
     border: 1px black solid;
     margin: 5px;
     background-color: #F8EDE3;
     border-radius: 4px;
+    
+}
+
+
+.todoItemLower {
+   padding: 15px 0;
+    overflow: hidden;
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 93%;
+    margin-top: -5px;
+    background-color: var(--light-color);
+    border: 1px black solid;
+    border-top: none;
+    border-radius: 0px 0px 4px 4px;
+
+
+}
+
+.proListTodoItem {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 20%;
+    padding-right: 5%;
+}
+
+.todoDescription  {
+    padding: 0 30px;
+    font-weight: 400;
 }
 
 .title {
     width: 50%;
+    cursor:pointer;
 }
 
 #popUpTodo, #popUpProject {

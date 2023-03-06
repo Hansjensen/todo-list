@@ -175,3 +175,22 @@ export function todoDeleteButtonListener() {
     })
 
 }
+
+export function expandTodoItemListener() {
+
+    let titletodo = document.querySelectorAll('.title');
+    
+
+    titletodo.forEach(item => {
+        let parent = item.parentElement
+        let drop = parent.nextElementSibling
+        item.addEventListener('click', e => {
+            
+            if (drop.style.display == 'flex') {
+                drop.style.display = 'none'
+            } else {
+                drop.style.display = 'flex'
+            }
+        })
+    })
+}
