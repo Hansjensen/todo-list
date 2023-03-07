@@ -207,3 +207,16 @@ export function prioritySelectDropdown() {
         })
     })
 }
+
+export function checkboxListener() {
+
+    let checkbox = document.querySelectorAll('.checkBox')
+
+    checkbox.forEach( item => {
+        item.addEventListener('click', e => {
+           let id = e.target.id.slice(6)
+           logic.checkMarkTodo(id)
+        })
+    })
+
+}

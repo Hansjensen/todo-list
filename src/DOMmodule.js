@@ -1,4 +1,4 @@
-import { projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown } from "./listeners"
+import { projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown, checkboxListener } from "./listeners"
 import { projectList } from "./logic"
 
 let currentList = []
@@ -116,10 +116,11 @@ export function todoItemRender(list) {
     todoDeleteButtonListener()
     expandTodoItemListener()
     prioritySelectDropdown()
+    checkboxListener()
 }
 
 function checkboxBuilder(todo) {
-    let checkbox = elementBuild('input', {'type' : 'checkbox'})
+    let checkbox = elementBuild('input', {'type' : 'checkbox', 'class' : 'checkBox', 'id' : 'check_' + todo.id})
     if (todo.checked) {
         checkbox.checked = true;
         return checkbox;

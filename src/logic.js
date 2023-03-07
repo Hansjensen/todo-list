@@ -11,6 +11,13 @@ export function addTodo(title, description, dueDate, priority, project) {
     todoList.push(todo)
 }
 
+export function checkMarkTodo(id) {
+    let change = todoList.find(x => x.id == id)
+
+    change.checked = !change.checked;
+}
+
+
 export function removeTodo(todo) {
     
     for (let i = 0; i < todoList.length; i++) {
