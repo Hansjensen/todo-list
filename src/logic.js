@@ -28,9 +28,9 @@ export function removeTodo(todo) {
     }
 }
 
-export function changePriority(todo, priority) {
+export function changePriority(id, priority) {
 
-    let change = todoList.find(x => x.id === todo.id)
+    let change = todoList.find(x => x.id == id)
     
     change.priority = priority;
 

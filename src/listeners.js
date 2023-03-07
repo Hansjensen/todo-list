@@ -194,3 +194,16 @@ export function expandTodoItemListener() {
         })
     })
 }
+
+export function prioritySelectDropdown() {
+
+    let priority = document.querySelectorAll('.prioritySelect')
+
+    priority.forEach(item => {
+        item.addEventListener('change', e => {
+            let todoId = item.id.slice(9)
+            logic.changePriority(todoId, item.value)
+            
+        })
+    })
+}

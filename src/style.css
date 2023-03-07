@@ -217,7 +217,7 @@ button {
     justify-content: space-between;
     width: 93%;
     margin-top: -5px;
-    background-color: var(--light-color);
+    background-color: #f8ede3b9;
     border: 1px black solid;
     border-top: none;
     border-radius: 0px 0px 4px 4px;
@@ -231,6 +231,7 @@ button {
     align-items: center;
     width: 20%;
     padding-right: 5%;
+   
 }
 
 .todoDescription  {
