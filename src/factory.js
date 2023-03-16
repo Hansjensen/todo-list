@@ -3,18 +3,21 @@ let idNum = 0
 export function todoItem(title, description, dueDate, priority, project) {
     
     
-    const todo = {
+    let todo = {
         id: idNum,
         title: title,
         description: description,
         dueDate: dueDate,
         priority: priority,
         checked: false,
+        projectId: 0
     }
     if (project) {
         
         todo.projectId = project
 
+    } else {
+        todo.projectId = 0
     }
     idNum++
     return todo

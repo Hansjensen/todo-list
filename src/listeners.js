@@ -220,3 +220,19 @@ export function checkboxListener() {
     })
 
 }
+
+export function projectSelectorTodoListener() {
+
+    let project = document.querySelectorAll('.projectTodoItem')
+
+    project.forEach(item => {
+        item.addEventListener('change', e => {
+            let proId = item.value
+            let id = item.id.slice(4)
+            console.log(proId)
+            console.log(id)
+            logic.changeProjectId(id, proId)
+            
+        })
+    })
+}

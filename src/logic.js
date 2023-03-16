@@ -1,5 +1,5 @@
 import * as factory from './factory';
-const todoList = [{id: 20, title: 'Hello World', description: 'coolshit', dueDate: '2023-03-01', priority: 'High', checked: true, projectId: 1}]
+const todoList = [{id: 20, title: 'Hello World', description: 'coolshit', dueDate: '2023-03-01', priority: 'High', checked: true, projectId: 0}]
 import { isToday, isTomorrow, parseISO, isThisWeek } from 'date-fns';
 import { currentList } from './DOMmodule';
 
@@ -57,9 +57,10 @@ export function changeTitle(todo, title) {
 
 }
 
-export function changeProjectId(todo, id) {
-    let change = todoList.find(x => x.id === todo.id)
-    change.projectId = id
+export function changeProjectId(id, proId) {
+    let change = todoList.find(x => x.id == id)
+    change.projectId = proId
+    console.log(change.projectId)
 
 }
 

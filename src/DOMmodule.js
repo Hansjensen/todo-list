@@ -1,4 +1,4 @@
-import { projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown, checkboxListener } from "./listeners"
+import { projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown, checkboxListener, projectSelectorTodoListener } from "./listeners"
 import { projectList } from "./logic"
 
 let currentList = []
@@ -99,7 +99,7 @@ export function todoItemRender(list) {
                     elementBuild('h2', {'class' : 'todoDescription'}, list[i].description),
                     elementBuild('div', {'class':'proListTodoItem'},
                         elementBuild('label', {'for': 'projectPop'}, 'PROJECT'),
-                        projectListPopUp()
+                        projectListTodo(list[i].projectId, list[i].id)
                     )
                 )
 
@@ -117,6 +117,7 @@ export function todoItemRender(list) {
     expandTodoItemListener()
     prioritySelectDropdown()
     checkboxListener()
+    projectSelectorTodoListener()
 }
 
 function checkboxBuilder(todo) {
@@ -227,8 +228,8 @@ function popUpBuilder(x) {
 }
 
 function projectListPopUp() {
-
-    let element = elementBuild('select', {'name' : 'projectPop', 'class' : 'projectPopT'})
+    
+    let element = elementBuild('select', {'name' : 'projectPop', 'id' : 'projectPopT'})
     element.appendChild(elementBuild('option', {'value' : 0}, 'None'))
     for (let i = 0; i < projectList.length; i++) {
         let title = projectList[i].title
@@ -236,6 +237,22 @@ function projectListPopUp() {
         let option = elementBuild('option', {'value' : id}, title)
         element.appendChild(option)
     }
+   
+    return element
+}
+
+function projectListTodo(x, y) {
+    
+    let element = elementBuild('select', {'name' : 'projectPop', 'class' : 'projectTodoItem', 'id' : 'pro_' + y})
+    element.appendChild(elementBuild('option', {'value' : 0}, 'None'))
+    for (let i = 0; i < projectList.length; i++) {
+        let title = projectList[i].title
+        let id = projectList[i].id
+        let option = elementBuild('option', {'value' : id}, title)
+        element.appendChild(option)
+    }
+    element.value = x
+    
     
     return element
 }
