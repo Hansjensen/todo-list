@@ -43,9 +43,9 @@ export function changePriority(id, priority) {
 
 }
 
-export function changeDescription(todo, description) {
+export function changeDescription(id, description) {
 
-    let change = todoList.find(x => x.id === todo.id)
+    let change = todoList.find(x => x.id === id)
     change.description = description;
 
 }
@@ -60,7 +60,6 @@ export function changeTitle(todo, title) {
 export function changeProjectId(id, proId) {
     let change = todoList.find(x => x.id == id)
     change.projectId = proId
-    console.log(change.projectId)
 
 }
 
@@ -135,7 +134,9 @@ export function popUpClass(x) {
         popUp = document.getElementById('popUpProject')
     } else if (x === 'todo'){
         popUp = document.getElementById('popUpTodo')
-    } 
+    }  else if (x === 'edit') {
+        popUp = document.getElementById('popUpEdit')
+    }
     
 
     overlay.classList.toggle('active')

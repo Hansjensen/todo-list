@@ -1,4 +1,4 @@
-import { projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown, checkboxListener, projectSelectorTodoListener } from "./listeners"
+import { projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown, checkboxListener, projectSelectorTodoListener, editFormPopUpListener } from "./listeners"
 import { projectList } from "./logic"
 
 let currentList = []
@@ -27,7 +27,8 @@ function elementBuild (type, attributes, ...children) {
 export function pageTemplate() {
     const body = document.querySelector('body')
     const popProject =  popUpBuilder('project');
-    const popTodo = popUpBuilder('todo')
+    const popTodo = popUpBuilder('todo');
+    const popEdit = popUpBuilder();
     const overlay = elementBuild('div', {'id' : 'overlay'})
     const template =
     
@@ -70,6 +71,7 @@ export function pageTemplate() {
             )
         ),
     );
+    body.appendChild(popEdit)
     body.appendChild(popProject)
     body.appendChild(popTodo)
     body.appendChild(template)
@@ -118,6 +120,7 @@ export function todoItemRender(list) {
     prioritySelectDropdown()
     checkboxListener()
     projectSelectorTodoListener()
+    editFormPopUpListener()
 }
 
 function checkboxBuilder(todo) {
@@ -199,7 +202,7 @@ function popUpBuilder(x) {
         elementBuild('div', {'id' : 'popUpHeader'}, 
             elementBuild('h1', {'id' : 'popUpTitle'}, 'Add Todo'),
             elementBuild('button', {'id' : 'popUpTodoClose'}, 'X' )),
-        elementBuild('form', {'id' : 'popUpFormT', }, 
+        elementBuild('form', {'id' : 'popUpFormT' }, 
         elementBuild('label', {'for' : 'titlePop',"class" : 'popLabel' }, 'TITLE'),
         elementBuild('input', {'type' : 'text', 'id' : 'titlePopT', 'name' : 'titlePop'}),
         elementBuild('label', {'for' : 'descriptionPop', "class" : 'popLabel'}, 'DESCRIPTION'),
@@ -221,6 +224,23 @@ function popUpBuilder(x) {
 
     )
     return popUpForm;
+    } else {
+        let popUpForm = elementBuild('div', {'id' : 'popUpEdit'},
+        elementBuild('div', {'id' : 'popUpHeader'}, 
+            elementBuild('h1', {'id' : 'popUpTitle'}, 'Edit'),
+            elementBuild('button', {'id' : 'popUpEditClose'}, 'X' )),
+        elementBuild('form', {'id' : 'editForm'},
+            elementBuild('label', {'for' : 'title', 'class' : 'popLabel'}, 'TITLE'),
+            elementBuild('input', {'id' :'editTitle', 'name' : 'title', 'type' : 'text'} ),
+            elementBuild('label', {'for' : 'description', 'class' : 'popLabel'}, 'DESCRIPTION'),
+            elementBuild('input', {'id' :'editDescription', 'name' : 'description', 'type' : 'text'} ),
+            elementBuild('label', {'for' : 'date',"class" : 'popLabel' }, 'DATE'),
+            elementBuild('input', {'type' : 'date', 'id' : 'editDate', 'name' : 'date'}), 
+            elementBuild('input', {'type' : 'submit' , 'value': 'EDIT', 'rows' : '10', 'id' : 'submitEdit'}, 'EDIT')
+            )
+        )
+        return popUpForm;
+
     }
 
     

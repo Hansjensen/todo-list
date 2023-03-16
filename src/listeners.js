@@ -147,6 +147,15 @@ function handleForm(event) { event.preventDefault(); }
 formT.addEventListener('submit', handleForm);
 }
 
+export function popUpCloseEditListener() {
+
+    let close = document.getElementById('popUpEditClose')
+    close.addEventListener('click', e => {
+        logic.popUpClass('edit');
+    })
+
+}
+
 export function popUpCloseProjectListener() {
     let close = document.getElementById('popUpProjectClose')
     close.addEventListener('click', e => {
@@ -229,10 +238,20 @@ export function projectSelectorTodoListener() {
         item.addEventListener('change', e => {
             let proId = item.value
             let id = item.id.slice(4)
-            console.log(proId)
-            console.log(id)
             logic.changeProjectId(id, proId)
             
+        })
+    })
+}
+
+export function editFormPopUpListener() {
+    let edit = document.querySelectorAll('.todoEdit')
+
+    edit.forEach(item => {
+        item.addEventListener('click', e => {
+            let id = e.target.id.slice(5)
+            console.log(id)
+            logic.popUpClass('edit')
         })
     })
 }
