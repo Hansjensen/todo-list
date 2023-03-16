@@ -127,7 +127,6 @@ export function submitProjectButton() {
         let description = document.getElementById('descriptionPopP').value
         let dueDate = document.getElementById('datePopP').value
         let priority = document.getElementById('priorityPopP').value
-        console.log('hey')
         logic.addProject(title, description,dueDate,priority)
         logic.popUpClass('project');
         todoItemRender(logic.todoList)
@@ -145,6 +144,9 @@ form.addEventListener('submit', handleForm);
 var formT = document.getElementById("popUpFormT");
 function handleForm(event) { event.preventDefault(); } 
 formT.addEventListener('submit', handleForm);
+var formE = document.getElementById("editForm");
+function handleForm(event) { event.preventDefault(); } 
+formE.addEventListener('submit', handleForm);
 }
 
 export function popUpCloseEditListener() {
@@ -246,12 +248,36 @@ export function projectSelectorTodoListener() {
 
 export function editFormPopUpListener() {
     let edit = document.querySelectorAll('.todoEdit')
-
+    let title = document.getElementById('editTitle')
+    let description = document.getElementById('editDescription')
+    let date = document.getElementById('editDate')
+    let submit = document.getElementById('submitEdit')
     edit.forEach(item => {
         item.addEventListener('click', e => {
-            let id = e.target.id.slice(5)
-            console.log(id)
+            let todo = logic.todoList.find(x => x.id == e.target.id.slice(5))
+            title.value = todo.title
+            description.value = todo.description
+            date.value = todo.dueDate
+            submit.setAttribute('data-id', e.target.id.slice(5))
             logic.popUpClass('edit')
         })
+    })
+}
+
+export function submitEditForm() {
+    let title = document.getElementById('editTitle')
+    let description = document.getElementById('editDescription')
+    let date = document.getElementById('editDate')
+    let submit = document.getElementById('submitEdit')
+
+    submit.addEventListener('click', e => {
+       
+        logic.changeDescription(parseInt(submit.dataset.id), description.value )
+        logic.changeTitle(parseInt(submit.dataset.id), title.value )
+        logic.changeDueDate(parseInt(submit.dataset.id), date.value)
+        logic.popUpClass('edit');
+        todoItemRender(logic.todoList)
+        projectListRender()
+
     })
 }

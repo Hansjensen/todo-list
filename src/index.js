@@ -3,7 +3,7 @@ import * as logic from "./logic";
 import 'typeface-roboto';
 import css from "./style.css";
 import { pageTemplate, projectListRender, todoItemRender  } from "./DOMmodule";
-import { allTodoListener, projectListener, todayListener,tomorrowListener, thisWeekListener, popUpListenerTodo, popUpListenerProject, submitTodoButton, submitProjectButton, stopFormRefresh, popUpCloseProjectListener, popUpCloseTodoListener, popUpDropdown, todoDeleteButtonListener, popUpCloseEditListener} from "./listeners";
+import { allTodoListener, projectListener, todayListener,tomorrowListener, thisWeekListener, popUpListenerTodo, popUpListenerProject, submitTodoButton, submitProjectButton, stopFormRefresh, popUpCloseProjectListener, popUpCloseTodoListener, popUpDropdown, todoDeleteButtonListener, popUpCloseEditListener, submitEditForm} from "./listeners";
 import { isToday, parseISO } from "date-fns";
 
 const running = new logic.addTodo('Running', 'Run 45 minutes', '2023-03-01', 'High', 1);
@@ -27,6 +27,7 @@ popUpListenerTodo()
 popUpListenerProject()
 submitTodoButton()
 submitProjectButton()
+submitEditForm()
 stopFormRefresh()
 popUpDropdown()
 popUpCloseProjectListener()

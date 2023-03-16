@@ -46,15 +46,25 @@ export function changePriority(id, priority) {
 export function changeDescription(id, description) {
 
     let change = todoList.find(x => x.id === id)
+    
     change.description = description;
+    
 
 }
 
 export function changeTitle(todo, title) {
 
-    let change = todoList.find(x => x.id === todo.id)
+    let change = todoList.find(x => x.id === todo)
+    
     change.title = title;
+    
 
+}
+
+export function changeDueDate(id, date) {
+    let change = todoList.find(x => x.id === id)
+    change.dueDate = date;
+    
 }
 
 export function changeProjectId(id, proId) {
