@@ -1,14 +1,53 @@
 import * as factory from './factory';
+import { pageTemplate, projectListRender, todoItemRender  } from "./DOMmodule";
+import { allTodoListener, projectListener, todayListener,tomorrowListener, thisWeekListener, popUpListenerTodo, popUpListenerProject, submitTodoButton, submitProjectButton, stopFormRefresh, popUpCloseProjectListener, popUpCloseTodoListener, popUpDropdown, todoDeleteButtonListener, popUpCloseEditListener, submitEditForm} from "./listeners";
 const todoList = [{id: 20, title: 'Hello World', description: 'coolshit', dueDate: '2023-03-01', priority: 'High', checked: true, projectId: 0}]
 import { isToday, isTomorrow, parseISO, isThisWeek } from 'date-fns';
 import { currentList } from './DOMmodule';
 
+export function loadUp() {
+    if (!localStorage.getItem('user')) {
+        newUserLoad()
+    } else {
+        console.log('hey')
+    }
+}
 
+export function newUserLoad() {
+const running = new addTodo('Running', 'Run 45 minutes', '2023-03-01', 'High', 1);
+const swimming = new addTodo('swimming', 'swim swim swim', '2023-03-02', 'Medium', 2)
+const swimef = new addTodo('swimming', 'swim swim swim', '2023-04-02', 'Medium', 2)
+const swimmfdfing = new addTodo('swimming', 'swim swim swim', 'tomorrow', 'Medium', 1)
+const workout = new addProject('Workouts', 'my daily workouts', 'this week', 'Medium');
+const worke = new addProject('neato', 'my daily workouts', 'this week', 'Medium');
+const workdut = new addProject('Longer Title', 'my daily workouts', 'this week', 'Medium');
+const wor33out = new addProject('shitts', 'my daily workouts', 'this week', 'Medium');
+
+pageTemplate();
+todoItemRender(todoList)
+projectListRender()
+allTodoListener()
+projectListener()
+todayListener()
+tomorrowListener()
+thisWeekListener()
+popUpListenerTodo()
+popUpListenerProject()
+submitTodoButton()
+submitProjectButton()
+submitEditForm()
+stopFormRefresh()
+popUpDropdown()
+popUpCloseProjectListener()
+popUpCloseTodoListener()
+popUpCloseEditListener()
+}
 
 export function addTodo(title, description, dueDate, priority, project) {
 
     let todo = new factory.todoItem(title, description, dueDate, priority, project)
     todoList.push(todo)
+
 }
 
 export function checkMarkTodo(id) {
