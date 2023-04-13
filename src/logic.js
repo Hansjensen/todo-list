@@ -1,19 +1,21 @@
 import * as factory from './factory';
 import { pageTemplate, projectListRender, todoItemRender  } from "./DOMmodule";
 import { allTodoListener, projectListener, todayListener,tomorrowListener, thisWeekListener, popUpListenerTodo, popUpListenerProject, submitTodoButton, submitProjectButton, stopFormRefresh, popUpCloseProjectListener, popUpCloseTodoListener, popUpDropdown, todoDeleteButtonListener, popUpCloseEditListener, submitEditForm} from "./listeners";
-const todoList = [{id: 20, title: 'Hello World', description: 'coolshit', dueDate: '2023-03-01', priority: 'High', checked: true, projectId: 0}]
+let todoList = []
+let projectList = []
 import { isToday, isTomorrow, parseISO, isThisWeek } from 'date-fns';
 import { currentList } from './DOMmodule';
 
 export function loadUp() {
-    if (!localStorage.getItem('user')) {
+    if (!localStorage.getItem('todoList')) {
         newUserLoad()
     } else {
-        console.log('hey')
+       existingUserLoad()
+
     }
 }
 
-export function newUserLoad() {
+function newUserLoad() {
 const running = new addTodo('Running', 'Run 45 minutes', '2023-03-01', 'High', 1);
 const swimming = new addTodo('swimming', 'swim swim swim', '2023-03-02', 'Medium', 2)
 const swimef = new addTodo('swimming', 'swim swim swim', '2023-04-02', 'Medium', 2)
@@ -43,17 +45,53 @@ popUpCloseTodoListener()
 popUpCloseEditListener()
 }
 
+function existingUserLoad() {
+
+todoList = JSON.parse(localStorage.getItem('todoList'))
+
+projectList =  JSON.parse(localStorage.getItem('projectList'))
+
+pageTemplate();
+todoItemRender(todoList)
+projectListRender()
+allTodoListener()
+projectListener()
+todayListener()
+tomorrowListener()
+thisWeekListener()
+popUpListenerTodo()
+popUpListenerProject()
+submitTodoButton()
+submitProjectButton()
+submitEditForm()
+stopFormRefresh()
+popUpDropdown()
+popUpCloseProjectListener()
+popUpCloseTodoListener()
+popUpCloseEditListener()
+}
+
+function saveTodo() {
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+}
+
+function saveProject() {
+    localStorage.setItem('projectList', JSON.stringify(projectList))
+}
 export function addTodo(title, description, dueDate, priority, project) {
 
     let todo = new factory.todoItem(title, description, dueDate, priority, project)
     todoList.push(todo)
-
+    saveTodo()
+    
 }
 
 export function checkMarkTodo(id) {
     let change = todoList.find(x => x.id == id)
-
+    
     change.checked = !change.checked;
+    saveTodo()
+    
 }
 
 
@@ -62,6 +100,7 @@ export function removeTodo(todo) {
     for (let i = 0; i < todoList.length; i++) {
         if (todoList[i].id == todo) {
             todoList.splice(i, 1);
+            saveTodo()
             
         }
     }    
@@ -69,9 +108,11 @@ export function removeTodo(todo) {
     for (let i = 0; i < currentList.length; i++) {
         if (currentList[i].id == todo) {
             currentList.splice(i, 1);
+            saveTodo()
             return;
         }
     }
+    
 }
 
 export function changePriority(id, priority) {
@@ -79,6 +120,7 @@ export function changePriority(id, priority) {
     let change = todoList.find(x => x.id == id)
     
     change.priority = priority;
+    saveTodo()
 
 }
 
@@ -87,6 +129,7 @@ export function changeDescription(id, description) {
     let change = todoList.find(x => x.id === id)
     
     change.description = description;
+    saveTodo()
     
 
 }
@@ -96,6 +139,7 @@ export function changeTitle(todo, title) {
     let change = todoList.find(x => x.id === todo)
     
     change.title = title;
+    saveTodo()
     
 
 }
@@ -103,21 +147,23 @@ export function changeTitle(todo, title) {
 export function changeDueDate(id, date) {
     let change = todoList.find(x => x.id === id)
     change.dueDate = date;
-    
+    saveTodo()
 }
 
 export function changeProjectId(id, proId) {
     let change = todoList.find(x => x.id == id)
     change.projectId = proId
+    saveTodo()
 
 }
 
-const projectList = []
+
 
 export function addProject(title, description, dueDate, priority) {
 
     let project = new factory.project(title, description, dueDate, priority)
     projectList.push(project)
+    saveProject()
 }
 
 export function removeProject(project) {
@@ -125,6 +171,7 @@ export function removeProject(project) {
     for (let i = 0; i < projectList.length; i++) {
         if (projectList[i].id === project.id) {
             projectList.splice(i, 1);
+            saveProject()
             return
         }
     }    
@@ -135,6 +182,7 @@ export function changePriorityProject(project, priority) {
     let change = projectList.find(x => x.id === project.id)
     
     change.priority = priority;
+    saveProject()
 
 }
 
@@ -142,6 +190,7 @@ export function changeDescriptionProject(project, description) {
 
     let change = projectList.find(x => x.id === project.id)
     change.description = description;
+    saveProject()
 
 }
 
