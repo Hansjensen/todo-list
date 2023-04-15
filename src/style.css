@@ -176,6 +176,7 @@ button {
 .projectListItem {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-right: 10%;
     
 }
@@ -183,6 +184,7 @@ button {
 .deleteProject {
     display: none;
     color:#85586F;
+    font-size: 1.3rem;
 }
 
 .projectListItem:hover > .deleteProject { display : block; } 

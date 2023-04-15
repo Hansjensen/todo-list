@@ -1,4 +1,4 @@
-import { projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown, checkboxListener, projectSelectorTodoListener, editFormPopUpListener } from "./listeners"
+import { deleteProjectListener, projectListener, todoDeleteButtonListener, expandTodoItemListener, prioritySelectDropdown, checkboxListener, projectSelectorTodoListener, editFormPopUpListener } from "./listeners"
 import { projectList } from "./logic"
 
 let currentList = []
@@ -148,7 +148,7 @@ function selectPriorityBuilder(todo) {
 
 
 
-export function projectListRender(x) {
+export function projectListRender() {
 
     let container = document.getElementById('projectLinks')
     let list = elementBuild('ul', {'id': 'projectList'},)
@@ -164,6 +164,7 @@ export function projectListRender(x) {
     }
     container.appendChild(list)
     projectListener()
+    deleteProjectListener()
 
 }
 

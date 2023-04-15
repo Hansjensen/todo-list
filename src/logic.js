@@ -169,7 +169,7 @@ export function addProject(title, description, dueDate, priority) {
 export function removeProject(project) {
     
     for (let i = 0; i < projectList.length; i++) {
-        if (projectList[i].id === project.id) {
+        if (projectList[i].id == project) {
             projectList.splice(i, 1);
             saveProject()
             return

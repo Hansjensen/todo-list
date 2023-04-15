@@ -128,6 +128,7 @@ export function submitProjectButton() {
         let dueDate = document.getElementById('datePopP').value
         let priority = document.getElementById('priorityPopP').value
         logic.addProject(title, description,dueDate,priority)
+        
         logic.popUpClass('project');
         todoItemRender(logic.todoList)
         projectListRender()
@@ -181,7 +182,6 @@ export function todoDeleteButtonListener() {
             todo = todo.slice(7)
             logic.removeTodo(todo);
             todoItemRender(currentList);
-            console.log(currentList)
         })
     })
 
@@ -280,4 +280,20 @@ export function submitEditForm() {
         projectListRender()
 
     })
+}
+
+export function deleteProjectListener() {
+    
+    let deleteProject = document.querySelectorAll('.deleteProject')
+    deleteProject.forEach(item => {
+        item.addEventListener('click', e => {
+            let project = e.target.id
+            let proId = project.slice(2)
+            logic.removeProject(proId)
+            projectListRender();
+            console.log(logic.projectList)
+            
+        })
+    })
+
 }
