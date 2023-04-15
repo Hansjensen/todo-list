@@ -122,6 +122,7 @@ button {
 #headerAdd:hover, a:hover {
     text-shadow: 0px 0px 4px var(--light-color);
     cursor: pointer;
+    display: block;
 
 }
 
@@ -171,6 +172,20 @@ button {
     margin-right: 45%;
     letter-spacing: .3em;
 }
+
+.projectListItem {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10%;
+    
+}
+
+.deleteProject {
+    display: none;
+    color:#85586F;
+}
+
+.projectListItem:hover > .deleteProject { display : block; } 
 
 #content {
     background-color: var(--light-color);

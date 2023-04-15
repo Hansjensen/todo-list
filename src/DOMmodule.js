@@ -157,7 +157,8 @@ export function projectListRender(x) {
     for (let i = 0; i < projectList.length; i++) {
         let build =
         elementBuild('li', {'class' : 'projectListItem'}, 
-                        elementBuild('a', {'class' : 'linkProject', 'id' : 'p' + projectList[i].id}, projectList[i].title)
+                        elementBuild('a', {'class' : 'linkProject', 'id' : 'p' + projectList[i].id}, projectList[i].title),
+                        elementBuild('a', {'class' : 'deleteProject', 'id' : 'px' + [projectList[i].id]}, "X")
                     )
         list.appendChild(build)
     }
